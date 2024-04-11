@@ -11,16 +11,16 @@ jobs:
  
     strategy:
       matrix:
-        node-version: ['14.x']
+        node-version: ['18.x', '20.x']
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
    
     services:
       postgres:
         image: postgres
         env:
-         POSTGRES_USER: ${{ secrets.PGUSER }}
-         POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
-         POSTGRES_DB: ${{ secrets.PGDATABASE }}
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: mysecretpassword
+         POSTGRES_DB: forumapi_test
          
         options: >-
           --health-cmd pg_isready
@@ -43,13 +43,13 @@ jobs:
         npm run test
       env:
         CI: true
-        HOST: ${{ secrets.HOST }}
-        PORT: ${{ secrets.PORT }}
-        PGHOST: ${{ secrets.PGHOST }}
-        PGPORT: ${{ secrets.PGPORT }}
-        PGUSER: ${{ secrets.PGUSER }}
-        PGPASSWORD: ${{ secrets.PGPASSWORD }}
-        PGDATABASE: ${{ secrets.PGDATABASE }}
-        ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
-        REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
-        ACCESS_TOKEN_AGE: ${{ secrets.ACCESS_TOKEN_AGE }}
+        HOST: localhost
+        PORT: 3000
+        PGHOST: localhost
+        PGPORT: 5432
+        PGUSER: postgres
+        PGPASSWORD: mysecretpassword
+        PGDATABASE: forumapi_test
+        ACCESS_TOKEN_KEY: secret
+        REFRESH_TOKEN_KEY: terces
+        ACCESS_TOKEN_AGE: 3600
